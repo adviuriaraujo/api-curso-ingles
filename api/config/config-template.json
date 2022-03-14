@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "NOME DE USUÁRIO",
+    "password": "SENHA",
+    "database": "NOME DO BANCO",
+    "host": "HOST",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "NOME DE USUÁRIO",
+    "password": "SENHA",
+    "database": "NOME DO BANCO",
+    "host": "HOST",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "NOME DE USUÁRIO",
+    "password": "SENHA",
+    "database": "NOME DO BANCO",
+    "host": "HOST",
+    "dialect": "mysql"
+  }
+}
