@@ -16,7 +16,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Turmas.init({
-    data_inicio: DataTypes.DATEONLY
+    data_inicio: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        isAfter: {
+          args: '2010-01-20',
+          msg: 'A data deve ser posterior a 20 de janeiro de 2010'
+        }
+      }
+    }
   }, {
     sequelize,
     paranoid: true,

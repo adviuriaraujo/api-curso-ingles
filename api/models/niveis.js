@@ -14,7 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Niveis.init({
-    descr_nivel: DataTypes.STRING
+    descr_nivel: {
+      type: DataTypes.STRING,
+      validate: {
+        validar: function(dado){
+          if(dado.length < 2) throw new Error('O campo descr_nivel deve ter mais de dois caracteres')
+        }
+      }
+    }
   }, {
     sequelize,
     paranoid: true,

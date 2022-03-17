@@ -1,49 +1,51 @@
 const { PessoasServices } = require('../services')
 const pessoasServices = new PessoasServices()
+const { DadoInvalido } = require('../erros')
 
 class PessoaController {
 
     //Métodos para Pessoas
 
-    static async pegaPessoasAtivas(req, res) {
+    static async pegaPessoasAtivas(req, res, next) {
         try {
             const pessoasAtivas = await pessoasServices.pegaRegistrosAtivos()
             return res.status(200).json(pessoasAtivas)
         } catch (error) {
-            return res.status(500).json(error.message)
+            next(error)
         }
     }
 
-    static async pegaTodasAsPessoas(req, res) {
+    static async pegaTodasAsPessoas(req, res, next) {
         try {
             const todasAsPessoas = await pessoasServices.pegaTodosOsRegistros()
             return res.status(200).json(todasAsPessoas)
         } catch (error) {
-            return res.status(500).json(error.message)
+            next(error)
         }
     }
 
-    static async pegaUmaPessoa(req, res) {
+    static async pegaUmaPessoa(req, res, next) {
         const { id } = req.params
         try {
             const umaPessoa = await pessoasServices.pegaUmRegistro(Number(id))
             return res.status(200).json(umaPessoa)
         } catch (error) {
-            return res.status(500).json(error.message)
+            next(error)            
         }
     }
 
-    static async criaPessoa(req, res) {
+    static async criaPessoa(req, res, next) {
         const novaPessoa = req.body
         try {
             const novaPessoaCriada = await pessoasServices.criaRegistro(novaPessoa)
             return res.status(201).json(novaPessoaCriada)
         } catch (error) {
-            return res.status(500).json(error.message)
+            const erro =  new DadoInvalido(error.errors[0].message)
+            next(erro)
         }
     }
 
-    static async atualizaPessoa(req, res) {
+    static async atualizaPessoa(req, res, next) {
         const { id } = req.params
         const dadosAtualizados = req.body
         try {
@@ -53,27 +55,32 @@ class PessoaController {
 
             res.status(200).json(pessoaAtualizada)
         } catch (error) {
-            return res.status(500).json(error.message)
+            if(error.name == 'SequelizeValidationError'){
+                const erro =  new DadoInvalido(error.errors[0].message)
+                next(erro)  
+            }else {
+                next(error)
+            } 
         }
     }
 
-    static async apagaPessoa(req, res) {
+    static async apagaPessoa(req, res, next) {
         const { id } = req.params
         try {
             await pessoasServices.apagaRegistro(Number(id))
             res.status(200).json({ mensagem: `Registro id ${id} deletado` })
         } catch (error) {
-            return res.status(500).json(error.message)
+            next(error)
         }
     }
 
-    static async restauraPessoa(req, res) {
+    static async restauraPessoa(req, res, next) {
         const { id } = req.params
         try {
             await pessoasServices.restauraRegistro(Number(id))
             res.status(200).json({ mensagem: `Registro id ${id} restaurado` })
         } catch (error) {
-            return res.status(500).json(error.message) 
+            next(error) 
         }
     }
 
@@ -81,19 +88,18 @@ class PessoaController {
 
     //Métodos para Matrículas
 
-    static async pegaMatriculasDeEstudante(req, res) {
+    static async pegaMatriculasDeEstudante(req, res, next) {
         const { estudanteId } = req.params
         try {
             const umaPessoa = await pessoasServices.pegaUmRegistro(Number(estudanteId))
-            if(!umaPessoa) throw new Error(`Pessoa com id ${estudanteId} não foi encontrada!`)
             const matriculasDeEstudante = await umaPessoa.getAulasMatriculadas()
             return res.status(200).json(matriculasDeEstudante)
         } catch (error) {
-            return res.status(500).json(error.message)
+            next(error)
         }
     }
 
-    static async cancelaMatriculaDoEstudante(req, res) {      
+    static async cancelaMatriculaDoEstudante(req, res, next) {      
         const { estudanteId } = req.params
         try {
             await pessoasServices.cancelaPessoaEMatriculas(Number(estudanteId))
@@ -101,7 +107,7 @@ class PessoaController {
                     { message: `Matrículas do estudante id ${estudanteId} canceladas` }
             )               
         } catch (error) {
-            return res.status(500).json(error.message)
+            next(error)
         }
     }
 

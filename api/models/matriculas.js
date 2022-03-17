@@ -1,4 +1,5 @@
 'use strict';
+const { DadoInvalido } = require('../erros')
 const {
   Model
 } = require('sequelize');
@@ -15,7 +16,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Matriculas.init({
-    status: DataTypes.STRING
+    status: {
+      type: DataTypes.STRING,
+      validate: {
+        validar: function(dado){
+          if(dado !== 'confirmado' && dado !== 'cancelado') throw new Error('O campo status deve ser confirmado ou cancelado')
+        }
+      }
+    }
   }, {
     sequelize,
     paranoid: true,

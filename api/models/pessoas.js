@@ -22,12 +22,19 @@ module.exports = (sequelize, DataTypes) => {
     nome: {
       type: DataTypes.STRING,
       validate: {
-        funcaoValidadora: function(dado){
+        validar: function(dado){
           if(dado.length <= 2) throw new Error('O campo nome deve ter 2 ou mais caracteres')
         }
       }
     },
-    ativo: DataTypes.BOOLEAN,
+    ativo: {
+      type: DataTypes.BOOLEAN,
+      validate: {
+        validar: function(dado){
+          if(typeof dado !== 'boolean') throw new Error('O campo ativo deve ser true ou false')
+        }
+      }
+    },
     email: {
       type: DataTypes.STRING,
       validate: {
@@ -37,7 +44,14 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    role: DataTypes.STRING
+    role: {
+      type: DataTypes.STRING,
+      validate: {
+        validar: function(dado){
+          if(dado.length < 2) throw new Error('O campo role deve ter 2 ou mais caracteres')
+        }
+      }
+    }
   }, {
     sequelize,
     paranoid: true,
