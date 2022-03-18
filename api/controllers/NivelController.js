@@ -4,6 +4,13 @@ const { DadoInvalido } = require('../erros')
 
 class NivelController {
 
+    static async opcoes(req, res, next) {
+        res.set('Access-Control-Allow-Methods', '*')
+        res.set('Access-Control-Allow-Headers', 'Content-Type')
+        res.status(204)
+        res.end()
+    }
+
     static async pegaTodosOsNiveis(req, res, next){
         try {
             const todosOsNiveis = await niveisServices.pegaTodosOsRegistros()

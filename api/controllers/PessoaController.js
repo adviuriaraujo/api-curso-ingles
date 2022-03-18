@@ -4,6 +4,13 @@ const { DadoInvalido } = require('../erros')
 
 class PessoaController {
 
+    static async opcoes(req, res, next) {
+        res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+        res.set('Access-Control-Allow-Headers', 'Content-Type')
+        res.status(204)
+        res.end()
+    }
+
     //Métodos para Pessoas
 
     static async pegaPessoasAtivas(req, res, next) {

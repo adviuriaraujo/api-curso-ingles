@@ -6,6 +6,13 @@ const Op = Sequelize.Op
 
 class TurmaController {
 
+  static async opcoes(req, res, next) {
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+    res.set('Access-Control-Allow-Headers', 'Content-Type')
+    res.status(204)
+    res.end()
+  }
+
   static async pegaTodasAsTurmas(req, res, next){
     const { data_inicial, data_final } = req.query
     const where = {}

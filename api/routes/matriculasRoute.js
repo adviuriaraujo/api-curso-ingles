@@ -3,6 +3,7 @@ const router = Router()
 const MatriculaController = require('../controllers/MatriculaController')
 
 router
+.options('/*', MatriculaController.opcoes)
 .get('/pessoas/:estudanteId/matriculas/:matriculaId', MatriculaController.pegaUmaMatricula)
 .post('/pessoas/:estudanteId/matriculas', MatriculaController.criaMatricula)
 .put('/pessoas/:estudanteId/matriculas/:matriculaId', MatriculaController.atualizaMatricula)
