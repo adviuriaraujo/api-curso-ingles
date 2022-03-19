@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const { NaoEncontrado, DadoInvalido } = require('./erros')
 const routes = require('./routes')
 const app = express()
 
-const port = 3000
+const port = process.env.PORT
 
 app.use((req, res, next) => {
     let formatoRequisitado = req.header('Accept')
