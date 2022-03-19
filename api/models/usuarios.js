@@ -14,8 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Usuarios.init({
-    nome: DataTypes.STRING,
-    email: DataTypes.STRING,
+    nome: {
+      type: DataTypes.STRING,
+      validate: {
+        validar: function (dado){
+          if(dado.length <= 2) throw new Error('O campo nome deve ter 2 ou mais caracteres')
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'e-mail inválido'//mensagem de erro
+        }
+      }
+    },
     senhaHash: DataTypes.STRING
   }, {
     sequelize,

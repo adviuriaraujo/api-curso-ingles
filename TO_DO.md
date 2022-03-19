@@ -1,9 +1,9 @@
-- preparar validações e erros para o model usuarios
-- criar um service para usuários
-- criar um controller para usuários
-- criar rotas CRUD para usuários
+- OK preparar validações e erros para o model usuarios
+- DOING criar um service para usuários
+- DOING criar um controller para usuários
+- DOING criar rotas CRUD para usuários
 - criar rota de login para usuários
-- desenvolver a lógica para transformar a senha em senhaHash
+- OK desenvolver a lógica para transformar a senha em senhaHash
 - criar as estratégias de autenticação
 - desenvolver o middleware de autenticação local e bearer
 - colocar autenticação local para login de usuário
