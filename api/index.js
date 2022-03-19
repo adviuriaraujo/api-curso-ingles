@@ -1,23 +1,15 @@
 require('dotenv').config()
 const express = require('express')
 const { NaoEncontrado, DadoInvalido } = require('./erros')
+const { contentType, cors } = require('./middlewares')
 const routes = require('./routes')
 const app = express()
 
 const port = process.env.PORT
 
-app.use((req, res, next) => {
-    let formatoRequisitado = req.header('Accept')
-    if (formatoRequisitado === '*/*') formatoRequisitado = 'application/json'
-    if (formatoRequisitado !== 'application/json') return res.status(406).end()
-    res.setHeader('Content-Type', 'application/json') 
-    next()   
-})
+app.use(contentType.set)
 
-app.use((req, res, next) => {
-    res.set('Access-Control-Allow-Origin', '*')
-    next()
-})
+app.use(cors.origin)
 
 routes(app)
 

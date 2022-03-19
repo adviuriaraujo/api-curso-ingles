@@ -1,0 +1,10 @@
+- preparar validações e erros para o model usuarios
+- criar um service para usuários
+- criar um controller para usuários
+- criar rotas CRUD para usuários
+- criar rota de login para usuários
+- desenvolver a lógica para transformar a senha em senhaHash
+- criar as estratégias de autenticação
+- desenvolver o middleware de autenticação local e bearer
+- colocar autenticação local para login de usuário
+- colocar autenticação por bearer para todas as outras rotas que não sejam de usuário
