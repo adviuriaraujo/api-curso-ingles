@@ -1,7 +1,7 @@
 - OK preparar validações e erros para o model usuarios
 - DOING criar um service para usuários
 - DOING criar um controller para usuários
-- DOING criar rotas CRUD para usuários
+- OK criar rotas CRUD para usuários
 - criar rota de login para usuários
 - OK desenvolver a lógica para transformar a senha em senhaHash
 - criar as estratégias de autenticação
